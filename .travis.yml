@@ -45,8 +45,7 @@ jobs:
     - choco install python2 --x86
     - python -m pip install --upgrade pip
     env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
-    # Only required becuase deployto to PyPi appears to work better on a linux VM.
-  - name: "Python 2.7 on Xenial Linux"
+  - name: Python 2.7 on Xenial Linux
     python: 2.7
 install:
 - pip install .
@@ -60,7 +59,7 @@ deploy:
   provider: pypi
   username: asmith_mapaction
   password:
-    secure: Pn5LTS1Jjr8s2HhmpCDUwNdufL1saUbBELldYi7gLzE4gS3LPv1X6Pr9HJ+j7ZVuAeV5j8tGWwFNanJgPXILVUzZMYR//GeMUuFUV7+LOUKvYwMXDfBjpmYAIh0trzzz20HCa/0TAiGDUUrYw7BEIKDPiIDLsPueoUTn7cFwHsDSENB/MEvQgNNaATz1KIGaBa+4YU5DVWKgdImqx1k3Ot2kvGtRy1eIrv4xe7WmjFHj/WYTB1rgDyteNvl3rXzh7P9XqeHKiQf2PU/az14R6HumUwU+lNV2nP5YKtmS8NBTJi9VW7H2zzYLlxC+NGVn1j5kaMz+sV+7mvl0ffKvCc+jyGf9iBZnlffajPjaZbtF+SyIY94vyCZBsyB5XwFWDme82v4Pv4t28l+2dmMB7JqC7XeoAWGKtE+QTKEnKk7yRYsXWFT79m2tag7An0/NcKeXVkwQuaTwD7BGAv2p5YL+itaAKl7okskiOOKF02SrkINUeab1EU90xQONx9PCNKzBrubX4WYBVAHzztRdVCh94zwo383mOBPxUMU96ST/ITCkGbEndPM1a1tPQH8GI+jwcqOfFPnfJA+bLNNe7hZT3yzPmNCWe+zB4irnP/A89L5Gmz3B+wBW+f7wQzhdldPtIUk2sxZo3LlLVQeGhzMlbcy1THcDW5r1nPTKqvs=
+    secure: gujw608OErzIisdPgni8VnRJ5nEL+fnkkxcM8vr+wGo4s8xCbnZLbJ851dP4g1Fy/k2aWyf/eU7NBtPbZ5QfCoiABo11K6p7/V86xB58zki3CNY1BvJ1JfxlGXlKWBcB/E9F0meg33XYsBpWqXtzLpY5IxyZstDkfA5HYDwpLxcJYRjQU7Ev/u/dY5aw4mSiHrsRSjsi6RpgJNe26Yn9tgnij6DoI7kOVeuZEuPVpxuhk9T5kAcGNJEMn7gMm5/0WETaqgv3ID6O8FnhYDZmOrnajJ0uXJ4Ev02vcT8DJWZ2rD2untUREU1B+cq1S+6BYLIZFo8zyQqOou4fYXjiD4oM48aSRf0DwZyac2yYjsvVOmKAUAQ3AFGjnxLVZVmRe/XiSzrXHRHOhJNM521jJUw4ik1OqlZJ27hmAGw63vYCD9i1vPu1easnFQe2wxjeCTw8KCcmT/XTaK87lFgFDj6tdA1VY1ffxGLTMElvHZH8MIW6e7RtgMcEHm8gsI6ucQoxNPjKruvQYK2qTEkb2yJvzAKztxxqT4SERYUKhtYPqpJLx32KmCznfUEyVIOFb0dw/Ry327bBogW/EQfryb+rnNtymmo86ynqkDts/scLnfk3bX47/q2nxMrU8MN01dS3wvY1P7IHKRntaFDUrctFy3UsJWHmQh0MqS9pqVw=
   distributions: sdist
   skip_existing: true
   skip_cleanup: true
