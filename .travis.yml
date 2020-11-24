@@ -46,8 +46,8 @@ jobs:
     - python -m pip install --upgrade pip
     env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
     # Only required becuase deployto to PyPi appears to work better on a linux VM.
-    - name: "Python 2.7 on Xenial Linux"
-      python: 2.7
+  - name: "Python 2.7 on Xenial Linux"
+    python: 2.7
 install:
 - pip install .
 - pip list
