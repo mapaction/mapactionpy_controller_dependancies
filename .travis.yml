@@ -3,66 +3,66 @@ os: linux
 dist: xenial
 jobs:
   include:
-    - name: "Python 3.9 on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install:
-        - choco install python --version 3.9.0
-        - python -m pip install --upgrade pip
-      env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
-    - name: "Python 3.8 on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install:
-        - choco install python --version 3.8.0
-        - python -m pip install --upgrade pip
-      env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
-    - name: "Python 3.7 on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install:
-        - choco install python --version 3.7.0
-        - python -m pip install --upgrade pip
-      env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-    # Python 3.6 is used by ArcGIS Pro v2.4
-    - name: "Python 3.6 on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install:
-        - choco install python --version 3.6.8
-        - python -m pip install --upgrade pip
-      env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
-    # Python 2.7 is used by ArcMap 10.6
-    - name: "Python 2.7 (64bit) on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install:
-        - choco install python2
-        - python -m pip install --upgrade pip
-      env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
-    - name: "Python 2.7 (32bit) on Windows"
-      os: windows           # Windows 10.0.17134 N/A Build 17134
-      language: shell       # 'language: python' is an error on Travis CI Windows
-      before_install:
-        - choco install python2 --x86
-        - python -m pip install --upgrade pip
-      env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+  - name: Python 3.9 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.9.0
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
+  - name: Python 3.8 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.8.0
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
+  - name: Python 3.7 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.7.0
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+  - name: Python 3.6 on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python --version 3.6.8
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+  - name: Python 2.7 (64bit) on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python2
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+  - name: Python 2.7 (32bit) on Windows
+    os: windows
+    language: shell
+    before_install:
+    - choco install python2 --x86
+    - python -m pip install --upgrade pip
+    env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+  - name: Python 2.7 on Xenial Linux
+    python: 2.7
 install:
 - pip install .
 - pip list
 before_script:
-# Check if windows if 32 or 64 bit
-- python -c "import sys; print('Python verion ={}, sys.platform={}, is 64bit? = {}'.format(sys.version_info.major, sys.platform, (sys.maxsize > 2**32)))"
+- python -c "import sys; print('Python verion ={}, sys.platform={}, is 64bit? = {}'.format(sys.version_info.major,
+  sys.platform, (sys.maxsize > 2**32)))"
 script:
-- python ./test_imports.py
+- if [ $TRAVIS_OS_NAME != linux ]; then python ./test_imports.py; fi
 deploy:
   provider: pypi
   username: asmith_mapaction
   password:
-    secure: this-wil-fail
-  distributions: "sdist"
+    secure: gujw608OErzIisdPgni8VnRJ5nEL+fnkkxcM8vr+wGo4s8xCbnZLbJ851dP4g1Fy/k2aWyf/eU7NBtPbZ5QfCoiABo11K6p7/V86xB58zki3CNY1BvJ1JfxlGXlKWBcB/E9F0meg33XYsBpWqXtzLpY5IxyZstDkfA5HYDwpLxcJYRjQU7Ev/u/dY5aw4mSiHrsRSjsi6RpgJNe26Yn9tgnij6DoI7kOVeuZEuPVpxuhk9T5kAcGNJEMn7gMm5/0WETaqgv3ID6O8FnhYDZmOrnajJ0uXJ4Ev02vcT8DJWZ2rD2untUREU1B+cq1S+6BYLIZFo8zyQqOou4fYXjiD4oM48aSRf0DwZyac2yYjsvVOmKAUAQ3AFGjnxLVZVmRe/XiSzrXHRHOhJNM521jJUw4ik1OqlZJ27hmAGw63vYCD9i1vPu1easnFQe2wxjeCTw8KCcmT/XTaK87lFgFDj6tdA1VY1ffxGLTMElvHZH8MIW6e7RtgMcEHm8gsI6ucQoxNPjKruvQYK2qTEkb2yJvzAKztxxqT4SERYUKhtYPqpJLx32KmCznfUEyVIOFb0dw/Ry327bBogW/EQfryb+rnNtymmo86ynqkDts/scLnfk3bX47/q2nxMrU8MN01dS3wvY1P7IHKRntaFDUrctFy3UsJWHmQh0MqS9pqVw=
+  distributions: sdist
   skip_existing: true
   skip_cleanup: true
   on:
     all_branches: true
-    condition: ${TRAVIS_BRANCH,,} =~ ^(main|${TRAVIS_TAG,,})$
+    condition: ${TRAVIS_OS_NAME,,} =~ ^linux$ && "${TRAVIS_BRANCH,,} =~ ^(main|${TRAVIS_TAG,,})$"
