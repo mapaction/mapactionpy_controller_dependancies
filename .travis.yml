@@ -54,7 +54,7 @@ before_script:
 # Check if windows if 32 or 64 bit
 - python -c "import sys; print('Python verion ={}, sys.platform={}, is 64bit? = {}'.format(sys.version_info.major, sys.platform, (sys.maxsize > 2**32)))"
 script:
-- python -p test_imports.py
+- python ./test_imports.py
 deploy:
   provider: pypi
   username: asmith_mapaction
