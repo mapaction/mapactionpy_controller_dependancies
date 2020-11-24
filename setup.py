@@ -8,10 +8,11 @@ from setuptools.command.develop import develop
 from setuptools.command.install import install
 # from distutils.core import setup
 from os import path, environ
+import sys
+import subprocess
+from get_wheel_list import get_wheel_paths, root_dir
 
 _base_version = '0.1'
-
-root_dir = path.abspath(path.dirname(__file__))
 
 
 def install_from_wheels(command_subclass):
@@ -23,55 +24,19 @@ def install_from_wheels(command_subclass):
     """
     orig_run = command_subclass.run
 
-    def get_platform_str(self):
-        result = None
-        if (sys.version_info.major == 2):
-
-
-            if sys.maxsize > 2**32:
-                # if 64bit:
-                result = 'cp27-cp27m-win_amd64'
-            else:
-                # 32 bit
-                result = 'cp27-cp27m-win32'
-        else:
-            minor_version_str = {
-                6 : 'cp36-cp36m-win_amd64',
-                7 : 'cp37-cp37m-win_amd64',
-                8 : 'cp38-cp38-win_amd64',
-                9 : 'cp39-cp39-win_amd64'
-            }
-            
-            result = minor_version_str[sys.version_info.minor]
-
-        return result
-
     def modified_run(self):
         print('Custom run() method')
 
         if sys.platform == 'win32':
-            import pip
-            platform_str = self.get_platform_str()
-
-            # The order these packages are intalled  matters, which is why
-            # this does not just do something like
-            # `glob.glob('{}/dependancy_wheels/*.whl'.format(root_dir))`
-            wheel_list = [
-                (platform_str, 'pyproj-1.9.6-{}.whl'.format(platform_str)),
-                (platform_str, 'Shapely-1.6.4.post2-{}.whl'.format(platform_str)),
-                (platform_str, 'GDAL-2.2.4-{}.whl'.format(platform_str)),
-                (platform_str, 'Fiona-1.8.13-{}.whl'.format(platform_str)),
-                (platform_str, 'Rtree-0.9.3-{}.whl'.format(platform_str))
-            ]
-
-            # platform netural packages. This is installed here (rather than using the
-            # `install_requires` parameter, because of the dependancy on other wheel files.
-            wheel_list.extend([('py2.py3-none-any','geopandas-0.6.2-py2.py3-none-any.whl')])
-
-            for dir_name, wheel_name in wheel_list:
-                wheel_path = path.join(root_dir, 'dependency_wheels', dir_name, wheel_name)
+            for wheel_path in get_wheel_paths():
+                # wheel_path = path.join(root_dir, 'dependency_wheels', dir_name, wheel_name)
                 print('Installing {} from wheel file.'.format(wheel_path))
-                pip.main(['install', wheel_path])
+                try:
+                    subprocess.check_call([sys.executable, '-m', 'pip', 'install', wheel_path])
+                    # pip_result = pip.main(['install', wheel_path])
+                    # print('pip result = {}'.format(pip_result))
+                except SystemExit:
+                    pass
 
         print('About to call default install run() method')
         orig_run(self)
@@ -119,8 +84,9 @@ def _get_version_number():
 
     return version
 
+
 setup(
-    name='mapactionpy_controller',
+    name='mapactionpy_controller_dependancies',
     cmdclass={
         'install': CustomInstallCommand,
         'develop': CustomDevelopCommand,
@@ -129,7 +95,7 @@ setup(
     description='Controls the workflow of map and infographic production',
     long_description=readme(),
     long_description_content_type="text/markdown",
-    url='http://github.com/mapaction/mapactionpy_controller',
+    url='http://github.com/mapaction/mapactionpy_controller_dependancies',
     author='MapAction',
     author_email='github@mapaction.com',
     license='GPL3',
