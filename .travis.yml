@@ -45,6 +45,9 @@ jobs:
     - choco install python2 --x86
     - python -m pip install --upgrade pip
     env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+    # Only required becuase deployto to PyPi appears to work better on a linux VM.
+    - name: "Python 2.7 on Xenial Linux"
+      python: 2.7
 install:
 - pip install .
 - pip list
@@ -52,7 +55,7 @@ before_script:
 - python -c "import sys; print('Python verion ={}, sys.platform={}, is 64bit? = {}'.format(sys.version_info.major,
   sys.platform, (sys.maxsize > 2**32)))"
 script:
-- python ./test_imports.py
+- if [ $TRAVIS_OS_NAME != linux ]; then python ./test_imports.py; fi
 deploy:
   provider: pypi
   username: asmith_mapaction
@@ -63,4 +66,4 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-    condition: "${TRAVIS_BRANCH,,} =~ ^(main|${TRAVIS_TAG,,})$"
+    condition: ${TRAVIS_OS_NAME,,} =~ ^linux$ && "${TRAVIS_BRANCH,,} =~ ^(main|${TRAVIS_TAG,,})$"
