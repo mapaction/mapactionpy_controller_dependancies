@@ -12,7 +12,7 @@ import sys
 import subprocess
 from get_wheel_list import get_wheel_paths, root_dir
 
-_base_version = '0.1'
+_base_version = '1.0'
 
 
 def install_from_wheels(command_subclass):
@@ -105,7 +105,7 @@ setup(
     tests_require=['unittest'],
     zip_safe=False,
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
