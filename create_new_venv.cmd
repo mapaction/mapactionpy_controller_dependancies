@@ -4,5 +4,5 @@ if not exist env37\Scripts\python.exe (cmd /c "C:\Program Files\Python37\python.
 if not exist env38\Scripts\python.exe (cmd /c "C:\Program Files\Python38\python.exe" -m virtualenv env38)
 
 for %%g in (env27, env37, env38) do (
- %%g\Scripts\python.exe -m pip install --no-color -e %~dp0
+ %%g\Scripts\python.exe -m pip install %~dp0
 )
