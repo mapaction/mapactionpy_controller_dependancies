@@ -48,4 +48,14 @@ before_script:
   sys.platform, (sys.maxsize > 2**32)))"
 script:
 - if [ $TRAVIS_OS_NAME != linux ]; then python ./test_imports.py; fi
-
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    secure: UpZDRhzPMoa98doEW7HALB0R/iCKz3MSm6d1sNCbhxE03quLk3KLwlz4PxODs/t7VVZ+rVuFnaihgBy32PRO9IImHkum8DqGe+fdCgbctcyF2GIKoosa97h0ycUsUFAvkZpseRDwDgv4yj0cmIDP62dtPTjd3jwuZ9FycRejy2ZjVtaXyY9K6x0acSaiYkcBm3kLXluPdcG+/+aSpo2wfjPu9hjx9f9MQDo+uO5bINJoine9gDyXJsv5wTvQCCWIQxa/B7wZ8Pnlfo8gGEGn4fO2mOicgk+vF31MME8AGyt0HhfU7ifUmvl1u++/zs1MYdVBC3I/E2IO+rY5j3Wodtn5HnheoSXPwHAhQxGwNWJ4qHCcagQNEQd3ZRfaDYTTKFLFKpzi0B1ls/ZCKKUD1RujUxHXUjgJzFO+ezbwv7Sz1pYEvhxBfE3s+9A8SH2oovgVjo5mz5y3XZ4mu2hian3dQJnHds1u3ID5FkercPjr82gPROpTkCd1v4gPG5xKxWT4qVNLJPxLSudjcAkgPLcD1+lbERFtGs2jtgwmazp2o30MNlsXuJ9a5fD32DOkrP9Iqe1OTmlxiFbBsKSFkiAroYNUJp3r7aoHW2/Ssl2BJTyzQRJ1kYFmhMcy5vuzSjUsKnJvAkvyrQs9DubsJNUJVYtdTvl/Pu1cQ5gXgNQ=
+  distributions: sdist
+  skip_existing: true
+  skip_cleanup: true
+  on:
+    all_branches: true
+    condition: ${TRAVIS_OS_NAME,,} =~ ^linux$ && "${TRAVIS_BRANCH,,} =~ ^(main|${TRAVIS_TAG,,})$"
