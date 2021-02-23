@@ -1,15 +1,8 @@
 import unittest
-# from setup import get_wheel_paths
-from get_wheel_list import get_wheel_paths
-
 
 class TestImports(unittest.TestCase):
     def setUp(self):
         pass
-
-    def test_get_wheel_paths(self):
-        print('\n'.join(get_wheel_paths()))
-        self.assertTrue(True)
 
     def test_imports(self):
         # Test PyProj
