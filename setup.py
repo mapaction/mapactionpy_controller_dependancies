@@ -45,7 +45,11 @@ def _get_version_number():
     travis_build = environ.get('TRAVIS_BUILD_NUMBER')
     travis_tag = environ.get('TRAVIS_TAG')
 
-    if travis_build:
+    repo_slug =  environ.get('TRAVIS_REPO_SLUG')
+    if repo_slug:
+        repo_slug =  repo_slug.lower().strip()
+
+    if travis_build and (repo_slug == 'mapaction/mapactionpy_controller_dependencies'):
         if travis_tag:
             version = travis_tag
         else:
