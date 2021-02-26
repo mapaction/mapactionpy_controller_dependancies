@@ -65,12 +65,12 @@ def _get_version_number():
 
 
 setup(
-    name='mapactionpy_controller_dependancies',
+    name='mapactionpy_controller_dependencies',
     version=_get_version_number(),
     description='Controls the workflow of map and infographic production',
     long_description=readme(),
     long_description_content_type="text/markdown",
-    url='http://github.com/mapaction/mapactionpy_controller_dependancies',
+    url='http://github.com/mapaction/mapactionpy_controller_dependencies',
     author='MapAction',
     author_email='github@mapaction.com',
     license='GPL3',
